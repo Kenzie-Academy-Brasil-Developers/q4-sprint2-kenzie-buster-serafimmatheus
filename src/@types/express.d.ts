@@ -1,11 +1,11 @@
 import { User } from "../entities/User";
-import { IDvdRepo } from "../types";
+import { IDvdRepo, IQuantity } from "../types";
 
 declare global {
   namespace Express {
     interface Request {
       user: User;
-      validated: User | IDvdRepo;
+      validated: User | IDvdRepo | IQuantity;
       decoded: User;
     }
   }

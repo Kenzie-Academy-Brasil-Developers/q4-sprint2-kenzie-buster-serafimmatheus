@@ -4,3 +4,7 @@ export interface IDvdRepo {
   quantity: number;
   price: number;
 }
+
+export interface IQuantity {
+  quantity: number;
+}

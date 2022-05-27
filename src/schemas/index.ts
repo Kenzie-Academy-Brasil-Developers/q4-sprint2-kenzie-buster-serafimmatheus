@@ -12,6 +12,10 @@ import {
   serializedDvdsSchema,
 } from "./dvd";
 
+//CARTS
+
+import { cretedCartSchema, serializedCartSchema } from "./cart";
+
 export {
   serializedUsersShema,
   serializedUserShema,
@@ -20,4 +24,6 @@ export {
   serializedDvdSchema,
   createDvdSchema,
   serializedDvdsSchema,
+  cretedCartSchema,
+  serializedCartSchema,
 };
