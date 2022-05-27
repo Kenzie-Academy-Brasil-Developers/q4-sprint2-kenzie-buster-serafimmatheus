@@ -1,4 +1,6 @@
 // USER
-import { userRepository } from "./user";
+import userRepository from "./user.repository";
+import dvdRepository from "./dvd.repository";
+import stockRepository from "./stock.repository";
 
-export { userRepository };
+export { userRepository, dvdRepository, stockRepository };

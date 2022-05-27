@@ -16,7 +16,7 @@ interface ILogin {
 
 class UserService {
   createUserService = async ({ validated }: Request) => {
-    (validated as User).password = await hash(validated.password, 10);
+    (validated as User).password = await hash((validated as User).password, 10);
 
     (validated as User).email.toLocaleLowerCase();
 
