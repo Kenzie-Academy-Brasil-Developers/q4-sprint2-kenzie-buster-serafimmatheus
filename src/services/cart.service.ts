@@ -4,6 +4,7 @@ import { User } from "../entities/User";
 import { ErrorHandlers } from "../errors";
 import { cartRepository, dvdRepository, userRepository } from "../repositories";
 import { serializedCartSchema } from "../schemas";
+import { serializedCartPaySchema } from "../schemas/cart";
 import { IQuantity } from "../types";
 
 class CartService {
@@ -34,6 +35,26 @@ class CartService {
         (validated as IQuantity).quantity
       }`
     );
+  };
+
+  updatedCartService = async ({ params }: Request) => {
+    const cartPay = await cartRepository.retieve({ id: params.id });
+
+    if (!cartPay.paid) {
+      const paidAproved = { paid: true };
+
+      const cartUpdated = await cartRepository.updateCart(params.id, {
+        ...paidAproved,
+      });
+
+      const cartPay2 = await cartRepository.retieve({ id: params.id });
+
+      return await serializedCartPaySchema.validate(cartPay2, {
+        stripUnknown: true,
+      });
+    }
+
+    throw new ErrorHandlers(400, "payment has already been approved");
   };
 }
 

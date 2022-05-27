@@ -7,6 +7,12 @@ class CartController {
 
     return res.status(201).json(createCart);
   };
+
+  updatedCartController = async (req: Request, res: Response) => {
+    const cartPay = await cartService.updatedCartService(req);
+
+    return res.status(200).json({ cart: cartPay });
+  };
 }
 
 export default new CartController();

@@ -22,7 +22,10 @@ const verifyTokenMiddleware = async (
     process.env.SECRET_KEY,
     (error: VerifyErrors, decoded: string | JwtPayload) => {
       if (error) {
-        throw new ErrorHandlers(401, error.message);
+        throw new ErrorHandlers(401, {
+          name: error.name,
+          message: error.message,
+        });
       }
 
       req.decoded = decoded as User;

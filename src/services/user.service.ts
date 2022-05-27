@@ -22,7 +22,7 @@ class UserService {
 
     (validated as User).isAdm = false;
 
-    const createduser = await userRepository.save(validated);
+    const createduser = await userRepository.save(validated as User);
 
     return serializedUserShema.validate(createduser, { stripUnknown: true });
   };
@@ -44,7 +44,7 @@ class UserService {
       (validated as User).isAdm = (validated as User).isAdm;
 
       await userRepository.updateUser(params.id, {
-        ...validated,
+        ...(validated as User),
       });
 
       const userFind = await userRepository.retieve({ id: params.id });
@@ -60,7 +60,7 @@ class UserService {
       }
 
       await userRepository.updateUser(params.id, {
-        ...validated,
+        ...(validated as User),
       });
 
       const userFind = await userRepository.retieve({ id: params.id });

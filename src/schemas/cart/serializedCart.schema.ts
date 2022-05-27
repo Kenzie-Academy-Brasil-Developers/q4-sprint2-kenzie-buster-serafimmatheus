@@ -22,4 +22,10 @@ const serializedCartSchema = yup.object().shape({
   }),
 });
 
-export { serializedCartSchema };
+const serializedCartPaySchema = yup.object().shape({
+  id: yup.string().uuid().required(),
+  total: yup.number().required(),
+  paid: yup.bool().required(),
+});
+
+export { serializedCartSchema, serializedCartPaySchema };

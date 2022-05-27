@@ -1,4 +1,5 @@
 import { Request } from "express";
+import { ErrorHandlers } from "../errors";
 import { stockRepository } from "../repositories";
 import dvdRepository from "../repositories/dvd.repository";
 import { serializedDvdSchema, serializedDvdsSchema } from "../schemas";

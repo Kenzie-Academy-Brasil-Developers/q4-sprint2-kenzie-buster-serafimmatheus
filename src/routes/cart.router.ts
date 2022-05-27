@@ -13,4 +13,10 @@ router.post(
   cartController.createCartController
 );
 
+router.put(
+  "/carts/pay/:id",
+  verifyTokenMiddleware,
+  cartController.updatedCartController
+);
+
 export { router };

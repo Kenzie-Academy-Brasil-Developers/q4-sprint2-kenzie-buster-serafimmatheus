@@ -11,7 +11,7 @@ import { serializedUpdateUserShema } from "../schemas/user";
 const router = Router();
 
 router.post(
-  "/login",
+  "/users/login",
   validateSchema(loginUserSchema),
   userController.LoginController
 );
