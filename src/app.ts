@@ -1,11 +1,11 @@
+import "express-async-errors";
 import express from "express";
+import { initApp } from "./routes/index.routes";
 
 const app = express();
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  return res.status(200).json({ message: "ok" });
-});
+initApp(app);
 
 export default app;

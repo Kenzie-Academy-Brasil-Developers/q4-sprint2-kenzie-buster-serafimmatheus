@@ -1,18 +1,34 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  OneToMany,
+} from "typeorm";
+import { compare } from "bcryptjs";
+import { Cart } from "./Cart";
 
-@Entity()
+@Entity("user")
 export class User {
+  @PrimaryGeneratedColumn("uuid")
+  id?: string;
 
-    @PrimaryGeneratedColumn()
-    id: number
+  @Column()
+  name: string;
 
-    @Column()
-    firstName: string
+  @Column({ unique: true })
+  email: string;
 
-    @Column()
-    lastName: string
+  @Column()
+  password: string;
 
-    @Column()
-    age: number
+  @Column({ default: false })
+  isAdm: boolean;
 
+  @OneToMany(() => Cart, (cart) => cart.user)
+  cart: Cart[];
+
+  comparePWD = async (comparePassword: string) => {
+    return await compare(comparePassword, this.password);
+  };
 }
