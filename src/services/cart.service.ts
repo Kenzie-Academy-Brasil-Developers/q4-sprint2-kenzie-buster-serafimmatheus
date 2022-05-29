@@ -9,7 +9,7 @@ import {
   userRepository,
 } from "../repositories";
 import { serializedCartSchema } from "../schemas";
-import { serializedCartPaySchema } from "../schemas/cart";
+import { serializedCartsSchema } from "../schemas/cart";
 import { IQuantity } from "../types";
 
 class CartService {
@@ -78,6 +78,12 @@ class CartService {
     }
 
     throw new ErrorHandlers(400, "payment has already been approved");
+  };
+
+  getAllCarts = async () => {
+    const getAllCarts = await cartRepository.allCart();
+
+    return serializedCartsSchema.validate(getAllCarts, { stripUnknown: true });
   };
 }
 

@@ -19,4 +19,10 @@ router.put(
   cartController.updatedCartController
 );
 
+router.get(
+  "/carts",
+  verifyTokenMiddleware,
+  cartController.getAllCartController
+);
+
 export { router };

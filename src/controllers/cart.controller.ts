@@ -13,6 +13,12 @@ class CartController {
 
     return res.status(200).json({ cart: cartPay });
   };
+
+  getAllCartController = async (_: Request, res: Response) => {
+    const getAllCart = await cartService.getAllCarts();
+
+    return res.status(200).json(getAllCart);
+  };
 }
 
 export default new CartController();

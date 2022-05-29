@@ -14,7 +14,11 @@ import {
 
 //CARTS
 
-import { cretedCartSchema, serializedCartSchema } from "./cart";
+import {
+  cretedCartSchema,
+  serializedCartSchema,
+  serializedCartsSchema,
+} from "./cart";
 
 export {
   serializedUsersShema,
@@ -26,4 +30,5 @@ export {
   serializedDvdsSchema,
   cretedCartSchema,
   serializedCartSchema,
+  serializedCartsSchema,
 };
