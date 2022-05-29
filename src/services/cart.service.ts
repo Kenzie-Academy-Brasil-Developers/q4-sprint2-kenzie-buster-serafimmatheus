@@ -2,7 +2,12 @@ import { Request } from "express";
 import { Dvd } from "../entities/Dvd";
 import { User } from "../entities/User";
 import { ErrorHandlers } from "../errors";
-import { cartRepository, dvdRepository, userRepository } from "../repositories";
+import {
+  cartRepository,
+  dvdRepository,
+  stockRepository,
+  userRepository,
+} from "../repositories";
 import { serializedCartSchema } from "../schemas";
 import { serializedCartPaySchema } from "../schemas/cart";
 import { IQuantity } from "../types";
@@ -41,15 +46,33 @@ class CartService {
     const cartPay = await cartRepository.retieve({ id: params.id });
 
     if (!cartPay.paid) {
-      const paidAproved = { paid: true };
+      const quantity = cartPay.dvd.stock.price / cartPay.total;
 
-      const cartUpdated = await cartRepository.updateCart(params.id, {
+      const paidAproved = {
+        paid: true,
+      };
+
+      const dvdStackUpdated = await dvdRepository.retieve({
+        id: cartPay.dvd.id,
+      });
+
+      const stock = await stockRepository.retieve({
+        id: dvdStackUpdated.stock.id,
+      });
+
+      const attStock = { quantity: stock.quantity - quantity };
+
+      const updatedStock = await stockRepository.updateStock(stock.id, {
+        ...attStock,
+      });
+
+      await cartRepository.updateCart(params.id, {
         ...paidAproved,
       });
 
       const cartPay2 = await cartRepository.retieve({ id: params.id });
 
-      return await serializedCartPaySchema.validate(cartPay2, {
+      return await serializedCartSchema.validate(cartPay2, {
         stripUnknown: true,
       });
     }
